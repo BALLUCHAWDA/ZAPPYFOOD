@@ -1,0 +1,102 @@
+
+
+{% extends 'zappyapp/base.html' %}
+{% block parentblock %}
+<!-- ALL POST VIEW-->
+<h1 align='center'>ALL PRODUCT</h1>
+
+<div class='container'> <h3>Ready To Eat </h3>
+<div class="container-fluid">
+  <div class="row">
+    {% for p in blist0 %}
+    <div class="col-sm-3">
+      <h4>{{p.productName}}</h4>
+          <img src="{{p.productPics.url}}" alt="mango" class="browseProductImage img-responsive"></a>
+      Net Weight : 100GM
+      <h5>MRP: RS{{p.productPrice}}</h5>
+      <div class="taxes">(Incl. of all taxes)</div>
+
+      <p>{{p.productDescription}}</p>
+
+      <form method="GET" action="/cart">
+
+
+              <input type="hidden" name="id"  value="{{p.id}}"/>
+                <input type="number" name="items" value="1" min="1"/>
+
+                </br></br><button type="submit" class="btn btn-warning">Add to Cart</button>
+</form>
+              </div>
+              {%endfor%}
+              </br>
+          	</div>
+    	   </div>
+</div>
+
+  </div>
+</br>
+<div class="container-fluid">
+</br>
+<div class='container'>
+    <h3>Ready To Drink</h3>
+  <div class="row">
+    {% for p in blist1 %}
+    <div class="col-sm-3">
+      <h4>{{p.productName}}</h4>
+          <img src="{{p.productPics.url}}" alt="mango" class="browseProductImage img-responsive"></a>
+      Net Weight : 20ML
+      <h5>MRP: RS{{p.productPrice}}</h5>
+      <div class="taxes">(Incl. of all taxes)</div>
+      <p>{{p.productDescription}}</p>
+            <form method="GET" action="/cart">
+              <input type="hidden" name="id"  value="{{p.id}}"/>
+                <input type="number" name="items" value="1" min="1"/>
+              </br></br><button type="submit" class="btn btn-warning">Add to Cart</button>
+
+      </form>
+</div>                   {%endfor%}
+              </br>
+          	</div>
+    	   </div>
+</div>
+
+  </div>
+</br>
+</br>
+
+
+<div class='container'>
+<h3>Ready To Cook</h3>
+<div class="container-fluid">
+  <div class="row">
+    {% for p in blist2 %}
+    <div class="col-sm-3">
+      <h4>{{p.productName}}</h4>
+          <img src="{{p.productPics.url}}" alt="mango" class="browseProductImage img-responsive"></a>
+      Net Weight : 200GM
+      <h5>MRP: RS{{p.productPrice}}</h5>
+      <div class="taxes">(Incl. of all taxes)</div>
+      <p>{{p.productDescription}}</p>
+
+        		<form method="GET" action="/cart">
+
+              <input type="hidden" name="id"  value="{{p.id}}"/>
+                <input type="number" name="items" value="1" min="1"/>
+
+                </br></br>
+  <button type="submit" class="btn btn-warning">Add to Cart</button>
+                  </a>
+</form>
+</div>
+{%endfor%}
+              </br>
+          	</div>
+    	   </div>
+</div>
+
+  </div>
+</br>
+</br>
+</div>
+
+{%endblock%}

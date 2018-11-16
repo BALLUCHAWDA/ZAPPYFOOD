@@ -1,0 +1,16 @@
+
+<!DOCTYPE HTML>
+{% extends 'zappyapp/base.html' %}
+{% block parentblock %}
+<!--Sign up page-->
+<div class="container" align="left">
+<div class="jumbotron">
+<h1 style="color:BLACK";>JOIN US</h1>
+<form method="post">
+  {{sform.as_p}}
+  {% csrf_token %}
+  <input type="submit" value="SIGNUP" />
+</form>
+</div>
+</div>
+{% endblock %}

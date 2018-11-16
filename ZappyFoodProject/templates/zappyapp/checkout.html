@@ -1,0 +1,17 @@
+{%extends 'zappyapp/base.html'%}
+{%load crispy_forms_tags%}
+
+{%block parentblock%}
+
+<div class="container">
+  <br><br><br>
+    <div class="content-section" >
+  <form method="post" action='/checkoutsuccess/'>
+
+    {% csrf_token %}
+        {{ch_form|crispy}}
+  <input type="submit" class="btn btn-outline-info" value='Save'/>
+  </form>
+</div>
+</div>
+{%endblock %}

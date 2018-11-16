@@ -1,0 +1,123 @@
+{%extends 'zappyapp/base.html'%}
+{%block parentblock%}
+<div class="container">
+{%if productPrice%}
+  <div class="row">
+    <div class="col-md-3">
+      <table class="table">
+        <thead>
+          <tr>
+          <th scope="col">Image</th>
+        </tr>
+        </thead>
+        <tbody>
+          {%for i in productPics%}
+          <tr>
+            <td><img src="{{i}}" height="45" width="45" alt=""></td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-3">
+      <table class="table">
+        <thead>
+          <tr>
+          <th scope="col">Product Name</th>
+        </tr>
+        </thead>
+        <tbody>
+          {%for i in productName%}
+          <tr>
+            <td>{{i}}</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+<div class="col-md-4">
+<table class="table">
+  <thead>
+    <tr>
+      <!-- <th scope="col">product_id</th> -->
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    {%for key,value in request.COOKIES.items%}
+    {%if key.isdigit%}
+    <tr>
+      <!-- <td>{{key}}</td> -->
+      <td>
+      <form method="POST" action="cartupdates/" >
+        {%csrf_token%}
+      <input type="hidden" name="product_id" value="{{key}}"/>
+      <input class="text-center"  min="1" max="20" type="number" name="items" value="{{value}}"/>
+      </form>
+      </td>
+      <td>
+      <form method="GET" action="cartdel" class="form-group"> <button name="id" value="{{key}}" type="submit"  class="btn btn-primary btn-lg">Remove</button>
+{%csrf_token%}
+      </form>
+      </td>
+    </tr>
+    {%endif%}
+    {%endfor%}
+  </tbody>
+</table>
+</div>
+<div class="col-md-2">
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      {%for p in productPrice%}
+      <tr>
+        <td>{{p}}</td>
+      </tr>
+      {%endfor%}
+      {%if productPrice%}
+      <tr>
+        <td>Total={{total}}</td>
+      </tr>
+      {%endif%}
+    </tbody>
+</table>
+</div>
+</div>
+<div class="jumbotron">
+<center>
+    <a class="btn btn-primary btn-lg" href="allproduct/" role="button">Add cart</a>
+    </br>
+    </br>
+<form method="post" action="checkout/" class="form-group float-md-right"> <button name="" value="" type="submit"  class="btn btn-primary btn-lg">Checkout</button>
+  {% csrf_token %}
+</form>
+    </center>
+
+</div>
+{%else%}
+<div class="jumbotron">
+<center>
+  <p>
+    THERE IS NO ITEM IN THIS CART VIEW.
+    IF WE WANT TO ADD SOME ITEM  IN ADD-TO-CART ,SO YOU HAVE TO ADD IN THIS BUTTON.
+    </p>
+    <a class="btn btn-primary btn-lg" href="allproduct/" role="button">Add cart</a>
+
+    </center>
+
+  </p>
+</div>
+{%endif%}
+{%if price%}
+<form method="POST" action="checkout/" class="form-group float-md-right"> <button name="" value="" type="submit"  class="btn btn btn-outline-secondary btn-sm">Checkout</button>
+  {%csrf_token%}
+</form>
+{%endif%}
+</div>
+{% endblock %}

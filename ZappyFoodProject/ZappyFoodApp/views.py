@@ -9,13 +9,18 @@ from django.core.paginator import  Paginator
 from django.core.mail import send_mail
 from django.conf import settings
 
+#HOMEVIEW
 def homeView(request):
-    return render(request,"zappyapp/home.html" )
+	return render(request,"zappyapp/home.html" )
+
 def home(request):
-    return render(request,"zappyapp/base.html")
+    return render(request,"zappyapp/home.html")
+
+#ABOUTUS
 def about(request):
     return render(request,"zappyapp/about.html")
 
+#ALLPRODUCT VIEW
 def allview(request):
     blist0 = AddProduct.objects.all().filter(productCategory='0' )
     blist1 = AddProduct.objects.all().filter(productCategory='1' )
@@ -23,6 +28,7 @@ def allview(request):
     mydict = {"blist0":blist0,"blist1":blist1,"blist2":blist2}
     return render(request,"zappyapp/allproduct.html",context=mydict)
 
+#SIGNUPVIEW
 def signupview(request):
     if request.method=='GET':
         sform=UserForm()
@@ -36,6 +42,7 @@ def signupview(request):
             #return HttpResponseRedirect(reverse('login'))
             return render(request,'zappyapp/success.html',{'msg':"RAGISTRATION SUCCESS...."})
 
+#VIEWCART
 def viewCart(request):
     products=AddProduct.objects.all()
     productPrice,productPics, productName = [], [], []
@@ -51,6 +58,7 @@ def viewCart(request):
         productPrice, productPics, productName, total = [], [], [], 0
     return render(request,"zappyapp/cart.html",context=dict)
 
+#CART
 def cart(request):
     response=render(request,"zappyapp/home.html" )
     id=request.GET.get("id")
@@ -63,10 +71,8 @@ def cart(request):
     else:
         response.set_cookie(id,item)
     return response
-
-# def viewCart(request):
-#     return render(request,"zappyapp/cart.html")
-
+	
+#CART_HOME
 def cart_home(request):
     length=0
     for k,v in request.COOKIES.items():
@@ -75,7 +81,6 @@ def cart_home(request):
     response=render(request,"zappyapp/cart.html")
     response.set_cookie('length',length)
     return response
-
 
 @login_required
 def profile(request):
@@ -92,6 +97,7 @@ def customer(request):
         customer_form = CustomerUpdate(request.POST,request.FILES,instance=request.user.Customer)
     return render(request, 'zappyapp/customer.html',{'customer_form':customer_form})
 
+#CARTDELETE
 def cartdelelete(request):
     response=render(request,"zappyapp/home.html" )
     id=request.GET.get('id')
@@ -99,7 +105,6 @@ def cartdelelete(request):
     if id in request.COOKIES.keys():
         response.delete_cookie(id)
     return response
-
 
 @login_required
 def checkout(request):
@@ -121,11 +126,11 @@ def checkout(request):
         ch_form = Checkout()
     return render(request, 'zappyapp/checkout.html',{'ch_form':ch_form})
 
+#CHECKOUTSUCCESS
 def checkoutsuccess(request):
     return render(request, 'zappyapp/checkoutsuccess.html')
 
 @login_required
 def orderhistory(request):
     order=Order.objects.filter(id=request.user.id).order_by('-id')
-    print(id)
     return render(request, 'zappyapp/orderhistory.html',{'order':order})
